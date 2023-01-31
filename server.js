@@ -36,8 +36,14 @@ app.get("/categories", function(req, res){
     data.getCategories()
         .then((data) => {
             res.send(data);
+            res.send("TODO: get all categories LOL")
         })
-    res.send("TODO: get all categories")
+        .catch((err) => {
+            var returnObj = {
+                message: `${err}`
+            };
+            res.json(returnObj)
+        })
 });
 
 app.get('*', function(req, res){
