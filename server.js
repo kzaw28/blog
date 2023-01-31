@@ -2,7 +2,7 @@ var path = require("path");
 var express = require("express");
 var app = express();
 
-var blog = require("blog-service.js")
+var data = require("./blog-service")
 
 var HTTP_PORT = process.env.PORT || 8080;
 
@@ -33,12 +33,14 @@ app.get("/posts", function(req, res){
 });
 
 app.get("/categories", function(req, res){
-    res.send("TODO: get all posts")
-});
-
-app.get("/posts", function(req, res){
     res.send("TODO: get all categories")
 });
 
+app.get('*', function(req, res){
+    res.status(404).send("Page Not Found");
+});
 
-app.listen(HTTP_PORT, onHttpStart);
+data
+    .initialize()
+    .then((res)=>{app.listen(HTTP_PORT, onHttpStart);})
+    .catch((err)=>{console.log(err);})
