@@ -29,7 +29,7 @@ function loadCategories() {
 }
 
 
-function initialize() {
+exports.initialize = function() {
     return new Promise(function(resolve, reject){
         loadPosts()
         .then(loadCategories)
@@ -42,46 +42,43 @@ function initialize() {
 };
 
 // ---------------------------------------------------------------------
-function getAllPosts() {
+exports.getAllPosts = function() {
     return new Promise(function(resolve, reject){
         if (posts.length == 0)
         {
             reject("No results returned");
         }
-        resolve(function(){
-            return posts;
-        });
+        resolve(posts);
     });
 };
 
 
-function getPublishedPosts() {
+exports.getPublishedPosts = function() {
     return new Promise(function(resolve, reject){
         if (posts.length == 0)
         {
             reject("No results returned");
         }
-        resolve(function(){
-            let tempArr = [];
-            for (let post of posts) {
-                if (post.published == true)
-                {
-                    tempArr.push(post);
-                }
-            };
-            return tempArr;
-        });
+
+        // Calculate the array to be put in resolve()
+        let tempArr = [];
+        for (let post of posts) {
+            if (post.published == true)
+            {
+                tempArr.push(post);
+            }
+        };
+
+        resolve(tempArr);
     });
 };
 
-function getCategories() {
+exports.getCategories = function() {
     return new Promise(function(resolve, reject){
         if (categories.length == 0)
         {
             reject("No results returned");
         }
-        resolve(function(){
-            return categories;
-        });
+        resolve(categories);
     });
 };

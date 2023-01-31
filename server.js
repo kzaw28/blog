@@ -33,6 +33,10 @@ app.get("/posts", function(req, res){
 });
 
 app.get("/categories", function(req, res){
+    data.getCategories()
+        .then((data) => {
+            res.send(data);
+        })
     res.send("TODO: get all categories")
 });
 
