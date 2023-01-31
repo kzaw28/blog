@@ -13,7 +13,7 @@ function onHttpStart() {
 // Serving static files
 app.use(express.static('public')); 
 
-// ROUTES ------------------------------
+// ROUTES ----------------------------------
 
 // The route "/" is redirected to "/about"
 app.get("/", function(req, res){
@@ -25,24 +25,41 @@ app.get("/about", function(req, res){
 });
 
 app.get("/blog", function(req, res){
-    res.send("TODO: get all posts who have published==true")
+    data.getPublishedPosts()
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            var returnObj = {
+                message: `${err}`
+            };
+            res.send(returnObj)
+        }) 
 });
 
 app.get("/posts", function(req, res){
-    res.send("TODO: get all posts")
+    data.getAllPosts()
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            var returnObj = {
+                message: `${err}`
+            };
+            res.send(returnObj)
+        })
 });
 
 app.get("/categories", function(req, res){
     data.getCategories()
         .then((data) => {
             res.send(data);
-            res.send("TODO: get all categories LOL")
         })
         .catch((err) => {
             var returnObj = {
                 message: `${err}`
             };
-            res.json(returnObj)
+            res.send(returnObj)
         })
 });
 
