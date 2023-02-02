@@ -1,3 +1,18 @@
+/*********************************************************************************
+*  WEB322 – Assignment 02
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 1st February, 2023
+*
+*  Cyclic Web App URL: ________________________________________________________
+*
+*  GitHub Repository URL: ______________________________________________________
+*
+********************************************************************************/ 
+
+
+
 var path = require("path");
 var express = require("express");
 var app = express();
@@ -11,7 +26,7 @@ function onHttpStart() {
 };
 
 // Serving static files
-app.use(express.static("public/main.css")); 
+app.use(express.static(path.join(__dirname, "public"))); 
 
 // ROUTES ----------------------------------
 
