@@ -5,9 +5,9 @@
 * 
 *  Name: Kaung Khant Zaw Student ID: 157467218 Date: 1st February, 2023
 *
-*  Cyclic Web App URL: ________________________________________________________
+*  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
-*  GitHub Repository URL: ______________________________________________________
+*  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
 
