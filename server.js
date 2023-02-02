@@ -11,7 +11,7 @@ function onHttpStart() {
 };
 
 // Serving static files
-app.use(express.static('public')); 
+app.use(express.static("public/main.css")); 
 
 // ROUTES ----------------------------------
 
