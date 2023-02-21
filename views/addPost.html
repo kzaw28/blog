@@ -1,0 +1,123 @@
+<!--
+/*********************************************************************************
+*  WEB322 – Assignment 03
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 20th February, 2023
+*
+*  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
+*
+*  GitHub Repository URL: https://github.com/kzaw28/web322-app
+*
+********************************************************************************/ 
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <meta name="author" content="Kaung Khant Zaw" />
+        <meta name="description" content="WEB322 - Kaung Khant Zaw" />
+
+        <title>WEB322 - Kaung Khant Zaw</title>
+        <meta charset="utf-8" >
+
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+        <!-- CSS Style Sheet -->
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md">
+                <a class="navbar-brand" href="#">WEB322 - Kaung Khant Zaw</a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link add-post-nav-item" href="/posts/add">Add Post</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="add-post">
+                <h1 style="color: #f84141;">Add Post</h1>
+
+                <form action="/posts/add" method="POST" enctype="multipart/form-data">
+                    <div class="form-container">
+
+
+                        <!---------------- Feature Image --------------------->
+                        <h4 class="mb-3">Feature Image</h4>
+                        <div class="mb-3">
+                            <input type="file" name="featureImage" id="featureImage" class="form-control border border-danger" required>
+                        </div>
+        
+
+                        <!---------------- Post Content --------------------->
+                        <h4 class="mb-3">Post Content</h4>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="title" id="title" class="form-control border border-danger" placeholder="Title" required> 
+                            <label for="title" class="form-label">Title</label>
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+                            <textarea name="body" id="body" class="form-control border border-danger" style="height:150px;"placeholder="Body" required></textarea>
+                            <label for="body" class="form-label">Body</label>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="category" class="form-label">Category</label>
+                                    <select name="category" id="category" class="form-select border border-danger" required> 
+                                        <option value="1" selected>Technology</option>
+                                        <option value="2">Gaming</option>
+                                        <option value="3">Fashion</option>
+                                        <option value="4">Education</option>
+                                        <option value="5">Wellness</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="published" class="form-label">Visibility</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" name="published" id="published" class="form-check-input border border-danger"> 
+                                        <label for="published" class="form-check-label">Published</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary mt-4 btn-lg btn-danger">Submit</button>
+    
+                    </div>
+                </form>
+            </section>
+        </main>
+
+    </body>
+</html>

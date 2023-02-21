@@ -1,3 +1,16 @@
+/*********************************************************************************
+*  WEB322 – Assignment 03
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 20th February, 2023
+*
+*  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
+*
+*  GitHub Repository URL: https://github.com/kzaw28/web322-app
+*
+********************************************************************************/ 
+
 
 /* Importing google fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
@@ -22,9 +35,27 @@ p {
 /*---------------------- Nav Bar ----------------------------*/
 
 nav ul li {
-    margin: 10px 15px;
+    margin: 10px 20px;
 }
 
+.add-post-nav-item {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: #f84141;
+    color: #fff;
+    font-weight: 600;
+
+    transition: transform 0.1s ease-in-out;
+}
+
+.add-post-nav-item:hover {
+    transform: scale(1.1); /* The "button" pops up when hovered over*/
+    border-color: #f84141;
+    color: #fff;
+
+}
 /*----------------------- About ----------------------------- */
 
 #about {
