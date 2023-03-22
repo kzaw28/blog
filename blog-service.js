@@ -1,15 +1,17 @@
 /*********************************************************************************
-*  WEB322 – Assignment 03
-*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source 
+*  WEB322 – Assignment 04
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 20th February, 2023
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 22nd February, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
 *  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
+
+// RECEIVED EXTENSION OF DEADLINE FOR TWO DAYS
 
 const fs = require("fs");
 const { resolve } = require("path");
@@ -167,7 +169,7 @@ exports.getPostsByMinDate = function(minDateStr) {
 }
 
 
-exports.getPostsById = function(id) {
+exports.getPostById = function(id) {
     return new Promise(function(resolve, reject){
         let tempPost = {};
         for (let key in posts) {
@@ -183,6 +185,26 @@ exports.getPostsById = function(id) {
             reject("No result returned");
         } else {
             resolve(tempPost);
+        }
+    });
+}
+
+exports.getPublishedPostsByCategory = function(category) {
+    return new Promise(function(resolve, reject){
+        let newArr = []
+        for (let key in posts) {
+            const post = posts[key]; // Need to deference the key
+            if (post.category == category && post.published == true)
+            {
+                newArr.push(post);
+            }
+        }
+    
+        if (newArr.length == 0)
+        {
+            reject("No result returned");
+        } else {
+            resolve(newArr);
         }
     });
 }

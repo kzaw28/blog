@@ -1,0 +1,66 @@
+<!--
+/*********************************************************************************
+*  WEB322 – Assignment 04
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 22nd February, 2023
+*
+*  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
+*
+*  GitHub Repository URL: https://github.com/kzaw28/web322-app
+*
+********************************************************************************/ 
+
+// RECEIVED EXTENSION OF DEADLINE FOR TWO DAYS
+-->
+
+<div class="row">
+    <section class="main col-md-9">
+        {{#if data.post}}
+        <article>
+            <h2>{{data.post.title}}</h2>
+            <img src="{{data.post.featureImage}}" alt="feature Image" style="width:100%" />
+            <br /><br />
+            {{#safeHTML data.post.body}}{{/safeHTML}}
+            <br /><br />
+            <strong>Category:</strong> {{data.post.category}} <br />
+            <strong>Last Updated:</strong> {{data.post.postDate}}
+
+        </article>
+        {{/if}}
+    </section>
+
+    <aside class="col-md-3">
+        <br /><br />
+
+        {{#if data.posts}}
+        <h4>Posts</h4>
+
+        <ul class="list-group">
+            {{#each data.posts}}
+            <a href="/blog/{{id}}?category={{category}}" class="list-group-item">{{title}}</a>
+            {{/each}}
+        </ul>
+        {{/if}}
+
+        
+        {{#if data.categories}}
+        <h4>Categories</h4>
+
+        <ul class="list-group">
+            {{#each data.categories}}
+            <a href="/blog?category={{id}}" class="list-group-item">{{category}}</a>
+            {{/each}}
+        </ul>
+        {{/if}}
+
+        {{#unless data.posts}}
+        <div class="col-md-12 text-center">
+            <h2>{{data.message}}</h2>
+            <p>Please try another Post / Category</p>
+        </div>
+        {{/unless}}
+
+    </aside>
+</div>

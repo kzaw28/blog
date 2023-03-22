@@ -1,0 +1,54 @@
+<!--
+/*********************************************************************************
+*  WEB322 – Assignment 04
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 22nd February, 2023
+*
+*  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
+*
+*  GitHub Repository URL: https://github.com/kzaw28/web322-app
+*
+********************************************************************************/ 
+
+// RECEIVED EXTENSION OF DEADLINE FOR TWO DAYS
+-->
+
+<div class="col-md-12">
+        <h1>Posts</h1>
+        <hr />
+</div>
+
+{{#unless posts}}
+<div class="col-md-12 text-center">
+    <strong>{{message}}</strong>
+</div>
+{{/unless}}
+
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Post ID</th>
+                <th>Title</th>
+                <th>Post Date</th>
+                <th>Category</th>
+                <th>Published</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each posts}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{title}}</td>
+                <td>{{postDate}}</td>
+                <td><a href="/posts?category={{category}}">{{category}}</a></td>
+                <td>{{published}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+

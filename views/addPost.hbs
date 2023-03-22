@@ -1,0 +1,71 @@
+<!--
+/*********************************************************************************
+*  WEB322 – Assignment 04
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 
+*
+*  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
+*
+*  GitHub Repository URL: https://github.com/kzaw28/web322-app
+*
+********************************************************************************/ 
+
+-->
+<h1 style="color: #f84141;">Add Post</h1>
+
+<form action="/posts/add" method="POST" enctype="multipart/form-data">
+    <div class="form-container">
+
+
+        <!---------------- Feature Image --------------------->
+        <h4 class="mb-3">Feature Image</h4>
+        <div class="mb-3">
+            <input type="file" name="featureImage" id="featureImage" class="form-control border border-danger" required>
+        </div>
+
+
+        <!---------------- Post Content --------------------->
+        <h4 class="mb-3">Post Content</h4>
+        <div class="form-floating mb-3">
+            <input type="text" name="title" id="title" class="form-control border border-danger" placeholder="Title" required> 
+            <label for="title" class="form-label">Title</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            <textarea name="body" id="body" class="form-control border border-danger" style="height:150px;"placeholder="Body" required></textarea>
+            <label for="body" class="form-label">Body</label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select name="category" id="category" class="form-select border border-danger" required> 
+                        <option value="1" selected>Technology</option>
+                        <option value="2">Gaming</option>
+                        <option value="3">Fashion</option>
+                        <option value="4">Education</option>
+                        <option value="5">Wellness</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label for="published" class="form-label">Visibility</label>
+                    <div class="form-check">
+                        <input type="checkbox" name="published" id="published" class="form-check-input border border-danger"> 
+                        <label for="published" class="form-check-label">Published</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary mt-4 btn-lg btn-danger">Submit</button>
+
+    </div>
+</form>
