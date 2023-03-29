@@ -1,48 +1,52 @@
 <!--
 /*********************************************************************************
-*  WEB322 – Assignment 04
+*  WEB322 – Assignment 05
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 22nd February, 2023
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 29th March, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
 *  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
-
-// RECEIVED EXTENSION OF DEADLINE FOR TWO DAYS
 -->
 
 <div class="row">
     <div class="col-md-12">
-          <h1>Categories</h1>
-          <hr />
+        <h1>Categories</h1>
+        <div class="text-center">
+            <a href="/categories/add" class="btn btn-outline-danger">Add Category</a>
+        </div>
+        <hr />
     </div>
 </div>
 
-{{#unless posts}}
-<div class="col-md-12 text-center">
-    <strong>{{message}}</strong>
-</div>
-{{/unless}}
-
 <div class="table-responsive">
-<table class="table">
-    <thead>
-        <tr>
-            <th>Category ID</th>
-            <th>Category Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each categories}}
-        <tr>
-            <td><a href="/posts?category={{id}}">{{id}}</a></td>
-            <td><a href="/posts?category={{id}}">{{category}}</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category ID</th>
+                <th>Category Name</th>
+                <th></th> <!-- For the remove button -->
+            </tr>
+        </thead>
+        <tbody>
+            {{#each categories}}
+            <tr>
+                <td><a href="/posts?category={{id}}">{{id}}</a></td>
+                <td><a href="/posts?category={{id}}">{{category}}</a></td>
+                <td><a href="/categories/delete/{{id}}" class="btn btn-primary btn-danger">Remove</a></td> <!-- remove button -->
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    {{#unless posts}}
+    <div class="col-md-12 text-center">
+        <strong>{{message}}</strong>
+    </div>
+    {{/unless}}
+    
 </div>

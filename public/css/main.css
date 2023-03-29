@@ -62,7 +62,9 @@ nav ul li {
 
 }
 /*----------------------- About ----------------------------- */
-
+img{
+    max-width: 70%;
+}
 #about {
     margin-top: 20px;
 }
@@ -107,3 +109,10 @@ nav ul li {
 .coming-soon-container p {
     text-align: center;
 }
+
+h4 {
+    font-weight: 800;
+    color: #f84141;
+}
+
+/*----------------------- Article ----------------------------- */

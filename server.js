@@ -1,19 +1,15 @@
 /*********************************************************************************
-*  WEB322 – Assignment 04
+*  WEB322 – Assignment 05
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 22nd February, 2023
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 29th March, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
 *  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
-
-// RECEIVED EXTENSION OF DEADLINE FOR TWO DAYS
-
-
 
 const path = require("path");
 const express = require("express");
@@ -50,7 +46,14 @@ app.engine(".hbs", exphbs.engine({
         },
         safeHTML: function(context){
             return stripJs(context);
+        },
+        formatDate: function(dateObj){
+            let year = dateObj.getFullYear();
+            let month = (dateObj.getMonth() + 1).toString();
+            let day = dateObj.getDate().toString();
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2,'0')}`;
         }
+        
     }
 
 
@@ -89,6 +92,7 @@ app.use(function(req,res,next){
     next();
 });
 
+app.use(express.urlencoded({extended: true}));
 
 // ROUTES ----------------------------------
 
@@ -201,7 +205,16 @@ app.get('/blog/:id', async (req, res) => {
 
 
 app.get("/posts/add", function(req, res){
-    res.render("addPost");
+    data.getCategories()
+    .then((data) => {
+        res.render("addPost", {
+            categories: data
+        });
+    }).catch((err) => {
+        res.render("addPost", {
+            categories: []
+        });
+    });
 })
 
 
@@ -213,9 +226,18 @@ app.get("/posts", function(req, res){
     {
         data.getPostsByCategory(category)
         .then((data) => {
-            res.render("posts", {
-                posts: data
-            });
+            if (data.length > 0)
+            {
+                res.render("posts", {
+                    posts: data
+                });
+            }
+            else
+            {
+                res.render("posts", {
+                    message: "no results"
+                });
+            }
         })
         .catch((err) => {
             let returnObj = {
@@ -226,9 +248,18 @@ app.get("/posts", function(req, res){
     } else if (minDateStr) {
         data.getPostsByMinDate(minDateStr)
         .then((data) => {
-            res.render("posts", {
-                posts: data
-            });
+            if (data.length > 0)
+            {
+                res.render("posts", {
+                    posts: data
+                });
+            }
+            else
+            {
+                res.render("posts", {
+                    message: "no results"
+                });
+            }
         })
         .catch((err) => {
             res.render("posts", {
@@ -239,9 +270,18 @@ app.get("/posts", function(req, res){
     {
         data.getAllPosts()
         .then((data) => {
-            res.render("posts", {
-                posts: data
-            });
+            if (data.length > 0)
+            {
+                res.render("posts", {
+                    posts: data
+                });
+            }
+            else
+            {
+                res.render("posts", {
+                    message: "no results"
+                });
+            }
         })
         .catch((err) => {
             res.render("posts", {
@@ -256,9 +296,18 @@ app.get("/posts/:id", function(req, res){
     const postID = req.params.id;
     data.getPostById(postID)
     .then((data) => {
-        res.render("posts", {
-            posts: data
-        });
+        if (data.length > 0)
+        {
+            res.render("posts", {
+                posts: data
+            });
+        }
+        else
+        {
+            res.render("posts", {
+                message: "no results"
+            });
+        }
     })
     .catch((err) => {
         res.render("posts", {
@@ -270,14 +319,62 @@ app.get("/posts/:id", function(req, res){
 app.get("/categories", function(req, res){
     data.getCategories()
     .then((data) => {
-        res.render("categories", {
-            categories: data
-        });
+        if (data.length > 0)
+        {
+            res.render("categories", {
+                categories: data
+            });
+        }
+        else
+        {
+            res.render("categories", {
+                message: "no results"
+            });
+        }
     })
     .catch((err) => {
         res.render("categories", {
             message: "no results"
         });
+    })
+});
+
+app.get("/categories/add", function(req, res){
+    res.render("addCategory");
+}); 
+
+app.post("/categories/add", function(req, res){
+    const category = req.body;
+    data.addCategory(category)
+    .then((data) => {
+        res.redirect("/categories");
+    })
+    .catch((err) => {
+        res.render("categories", {
+            message: "no results"
+        });
+    })
+});
+
+app.get("/categories/delete/:id", function(req, res){
+    const categoryID = req.params.id;
+    data.deleteCategoryById(categoryID)
+    .then((data) => {
+        res.redirect("/categories");
+    })
+    .catch((err) => {
+        res.status(500).send("Unable to Remove Category / Category not found");
+    })
+}); 
+
+app.get("/posts/delete/:id", function(req, res){
+    const postID = req.params.id;
+    data.deletePostById(postID)
+    .then((data) => {
+        res.redirect("/posts");
+    })
+    .catch((err) => {
+        res.status(500).send("Unable to Remove Post / Post not found");
     })
 });
 

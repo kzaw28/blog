@@ -1,31 +1,40 @@
 <!--
 /*********************************************************************************
-*  WEB322 – Assignment 04
+*  WEB322 – Assignment 05
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 22nd February, 2023
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 29th March, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
 *  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
-
-// RECEIVED EXTENSION OF DEADLINE FOR TWO DAYS
 -->
 
 <div class="row">
     <section class="main col-md-9">
+
+        {{#unless data.posts}}
+        <div class="col-md-12 text-center">
+            <h2>{{data.message}}</h2>
+            <img class="img-fluid" src="https://res.cloudinary.com/dojcvsabu/image/upload/v1680109290/Empty_ybzw3u.png" lt="No Posts Found">
+            <p>Please try another Post / Category</p>
+        </div>
+        {{/unless}}
+
         {{#if data.post}}
         <article>
             <h2>{{data.post.title}}</h2>
-            <img src="{{data.post.featureImage}}" alt="feature Image" style="width:100%" />
+            <picture class="text-start">
+                <img class="rounded m" src="{{data.post.featureImage}}" alt="Feature Image" style="width:100%;" />
+            </picture>
             <br /><br />
             {{#safeHTML data.post.body}}{{/safeHTML}}
             <br /><br />
             <strong>Category:</strong> {{data.post.category}} <br />
-            <strong>Last Updated:</strong> {{data.post.postDate}}
+            <strong>Last Updated:</strong> {{#formatDate data.post.postDate}}{{/formatDate}}
 
         </article>
         {{/if}}
@@ -34,33 +43,48 @@
     <aside class="col-md-3">
         <br /><br />
 
-        {{#if data.posts}}
-        <h4>Posts</h4>
-
-        <ul class="list-group">
-            {{#each data.posts}}
-            <a href="/blog/{{id}}?category={{category}}" class="list-group-item">{{title}}</a>
-            {{/each}}
-        </ul>
-        {{/if}}
-
-        
-        {{#if data.categories}}
-        <h4>Categories</h4>
-
-        <ul class="list-group">
-            {{#each data.categories}}
-            <a href="/blog?category={{id}}" class="list-group-item">{{category}}</a>
-            {{/each}}
-        </ul>
-        {{/if}}
-
         {{#unless data.posts}}
         <div class="col-md-12 text-center">
-            <h2>{{data.message}}</h2>
-            <p>Please try another Post / Category</p>
+            <h5>{{data.message}}</h5>
+        </div>    
+        {{/unless}}
+        
+        <h4>Posts</h4>
+
+        {{#equal data.posts.length 0}}
+        <div class="col-md-12 text-center">
+            <h5 class="text-start">No Posts Found</h5>
+        </div>
+        {{else}}
+        <ul class="list-group">
+            {{#each data.posts}}
+            <a href="/blog/{{id}}?category={{category}}" class="list-group-item list-group-item-action">{{title}}</a>
+            {{/each}}
+        </ul>
+        {{/equal}}
+        
+
+        <!-- Categories -->
+        {{#unless data.categories}}
+        <div class="col-md-12 text-center">
+            <h5>{{data.categoriesMessage}}</h5>
         </div>
         {{/unless}}
+
+        <h4>Categories</h4>
+
+        {{#equal data.categories.length 0}}
+        <div class="col-md-12 text-center">
+            <h5 class="text-start">No Categories Found</h5>
+        </div>  
+        {{else}}
+        <ul class="list-group">
+            {{#each data.categories}}
+            <a href="/blog?category={{id}}" class="list-group-item list-group-item-action">{{category}}</a>
+            {{/each}}
+        </ul>
+        {{/equal}}
+
 
     </aside>
 </div>

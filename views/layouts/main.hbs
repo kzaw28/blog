@@ -1,18 +1,16 @@
 <!--
 /*********************************************************************************
-*  WEB322 – Assignment 04
+*  WEB322 – Assignment 05
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 22nd February, 2023
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 29th March, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
 *  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
-
-// RECEIVED EXTENSION OF DEADLINE FOR TWO DAYS
 -->
 
 
@@ -39,14 +37,20 @@
     <body>
         <header>
             <nav class="navbar navbar-expand-md">
-                <a class="navbar-brand" href="#">WEB322 - Kaung Khant Zaw</a>
-                <ul class="navbar-nav">
-                    {{#navLink "/blog"}}Blog{{/navLink}}
-                    {{#navLink "/about"}}About{{/navLink}}
-                    {{#navLink "/posts"}}Posts{{/navLink}}
-                    {{#navLink "/categories"}}Categories{{/navLink}}
-                    {{#navLink "/posts/add"}}Add Post{{/navLink}}      
-                </ul>
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">WEB322 - Kaung Khant Zaw</a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav">
+                            {{#navLink "/blog"}}Blog{{/navLink}}
+                            {{#navLink "/about"}}About{{/navLink}}
+                            {{#navLink "/posts"}}Posts{{/navLink}}
+                            {{#navLink "/categories"}}Categories{{/navLink}}  
+                        </ul>
+                    </div>
+                </div>
             </nav>
         </header>
 

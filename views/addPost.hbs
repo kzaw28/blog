@@ -1,10 +1,10 @@
 <!--
 /*********************************************************************************
-*  WEB322 – Assignment 04
-*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source 
+*  WEB322 – Assignment 05
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 29th March, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
@@ -43,13 +43,18 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label for="category" class="form-label">Category</label>
-                    <select name="category" id="category" class="form-select border border-danger" required> 
-                        <option value="1" selected>Technology</option>
-                        <option value="2">Gaming</option>
-                        <option value="3">Fashion</option>
-                        <option value="4">Education</option>
-                        <option value="5">Wellness</option>
-                    </select>
+
+                    {{#if categories}}
+                        <select class="form-select border border-danger" name="category" id="category" required>
+                            <option value="">Select Category</option>
+                            {{#each categories}}
+                                <option value="{{id}}">{{category}}</option>
+                            {{/each}}
+                        </select>
+                    {{else}}
+                        <a href="/categories/add" class="btn btn-outline-danger">Add Category</a>
+                    {{/if}}
+
                 </div>
             </div>
 

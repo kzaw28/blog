@@ -11,12 +11,20 @@
 *  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
+
 -->
+<h1 style="color: #f84141;">Add Category</h1>
 
-<h1>Error 404</h1>
+<form action="/categories/add" method="POST">
+    <div class="form-container">
 
-<div class="row">
-    <div class="col-sm">
-        <p>Sorry, the page you are looking for could not be found.</p>
+        <!---------------- Post Content --------------------->
+        <div class="form-floating mb-3">
+            <input name="category" id="category" class="form-control border border-danger" placeholder="Category" required autofocus></input>
+            <label for="category" class="form-label">Category</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4 btn-lg btn-danger">Add Category</button>
+
     </div>
-</div>
+</form>
