@@ -12,18 +12,21 @@
 *
 ********************************************************************************/ 
 -->
-<h1 style="color: #f84141;">Add Category</h1>
-
-<form action="/categories/add" method="POST">
-    <div class="form-container">
-
-        <!---------------- Post Content --------------------->
-        <div class="form-floating mb-3">
-            <input name="category" id="category" class="form-control border border-danger" placeholder="Category" required autofocus></input>
-            <label for="category" class="form-label">Category</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-4 btn-lg btn-danger">Add Category</button>
-
-    </div>
-</form>
+<h2 style="color: #f84141;">{{session.user.userName}} ({{session.user.email}}) History</h2>
+<hr>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Login Date/Time</th>
+            <th>Client Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each session.user.loginHistory}}
+        <tr>
+            <td>{{this.dateTime}}</td>
+            <td>{{this.userAgent}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

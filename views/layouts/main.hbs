@@ -1,10 +1,10 @@
 <!--
 /*********************************************************************************
-*  WEB322 – Assignment 05
+*  WEB322 – Assignment 06
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 29th March, 2023
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 14th April, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
@@ -43,12 +43,34 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav">
-                            {{#navLink "/blog"}}Blog{{/navLink}}
+                        <ul class="nav navbar-nav navbar-right">
                             {{#navLink "/about"}}About{{/navLink}}
-                            {{#navLink "/posts"}}Posts{{/navLink}}
-                            {{#navLink "/categories"}}Categories{{/navLink}}  
+                            {{#navLink "/blog"}}Blog{{/navLink}}
                         </ul>
+                        {{#if session.user}}
+                        <ul class="nav navbar-nav navbar-right">
+                            {{#navLink "/posts"}}Posts{{/navLink}}
+                            {{#navLink "/categories"}}Categories{{/navLink}}
+                        </ul>
+                        <!-- ·	If session.user exists (ie: the user is logged in), show the following HTML:-->
+                            <form class="navbar-form navbar-right">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="userMenu"  data-bs-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{session.user.userName}}&nbsp;&nbsp;<span
+                                            class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="userMenu">
+                                        <li><a class="dropdown-item" href="/userHistory">User History</a></li>
+                                        <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                                    </ul>
+                                </div>
+                            </form>
+                        {{else}}
+                        <form class="navbar-form navbar-right">
+                            <a href="/register" class="btn btn-success"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Register</a>
+                            <a href="/login" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;Log In</a>
+                        </form>
+                        {{/if}}
                     </div>
                 </div>
             </nav>

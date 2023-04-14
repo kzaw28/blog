@@ -1,0 +1,52 @@
+<!--
+/*********************************************************************************
+*  WEB322 – Assignment 06
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
+*  (including 3rd party web sites) or distributed to other students.
+* 
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 14th April, 2023
+*
+*  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
+*
+*  GitHub Repository URL: https://github.com/kzaw28/web322-app
+*
+********************************************************************************/ 
+-->
+
+<h1 style="color: #f84141;">Register</h1>
+<hr>
+
+{{#if errorMessage}}
+<div class="alert alert-danger"> <strong>Error:</strong> {{errorMessage}}</div> 
+{{/if}}
+
+{{#if successMessage}}
+<div class="alert alert-success"> <strong>Success:</strong> {{successMessage}}</div><a class="btn btn-success pull-right" href="/login">&nbsp;&nbsp;&nbsp;Proceed to Log in&nbsp;&nbsp;&nbsp;</a><br /><br /><br /> 
+{{else}}
+<form action="/register" method="POST">
+    <div class="form-container">
+
+        <div class="form-floating mb-3">
+            <input name="userName" id="userName" class="form-control border border-danger" placeholder="Username" required autofocus></input>
+            <label for="userName" class="form-label">User Name</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" name="password" id="password" class="form-control border border-danger" placeholder="Password" required></input>
+            <label for="password" class="form-label">Password</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" name="password2" id="password2" class="form-control border border-danger" placeholder="Confirm Password" required></input>
+            <label for="password2" class="form-label">Confirm Password</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" name="email" id="email" class="form-control border border-danger" placeholder="Email Address" required></input>
+            <label for="email" class="form-label">Email Address</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4 btn-lg btn-danger">Register</button>
+    </div>
+</form>
+{{/if}}

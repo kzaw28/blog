@@ -12,18 +12,27 @@
 *
 ********************************************************************************/ 
 -->
-<h1 style="color: #f84141;">Add Category</h1>
 
-<form action="/categories/add" method="POST">
+<h1 style="color: #f84141;">Log In</h1>
+<hr>
+
+{{#if errorMessage}}
+<div class="alert alert-danger"> <strong>Error:</strong> {{errorMessage}}</div>
+{{/if}}
+
+<form action="/login" method="POST">
     <div class="form-container">
 
-        <!---------------- Post Content --------------------->
         <div class="form-floating mb-3">
-            <input name="category" id="category" class="form-control border border-danger" placeholder="Category" required autofocus></input>
-            <label for="category" class="form-label">Category</label>
+            <input name="userName" id="userName" class="form-control border border-danger" placeholder="Username" required autofocus></input>
+            <label for="userName" class="form-label">User Name</label>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-4 btn-lg btn-danger">Add Category</button>
+        <div class="form-floating mb-3">
+            <input type="password" name="password" id="password" class="form-control border border-danger" placeholder="Password" required></input>
+            <label for="password" class="form-label">Password</label>
+        </div>
 
+        <button type="submit" class="btn btn-primary mt-4 btn-lg btn-danger">Login</button>
     </div>
 </form>

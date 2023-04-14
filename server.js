@@ -1,16 +1,16 @@
+
 /*********************************************************************************
-*  WEB322 – Assignment 05
+*  WEB322 – Assignment 06
 *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 29th March, 2023
+*  Name: Kaung Khant Zaw Student ID: 157467218 Date: 14th April, 2023
 *
 *  Cyclic Web App URL: https://mushy-school-uniform-toad.cyclic.app/about
 *
 *  GitHub Repository URL: https://github.com/kzaw28/web322-app
 *
 ********************************************************************************/ 
-
 const path = require("path");
 const express = require("express");
 const app = express();
@@ -23,8 +23,11 @@ const exphbs = require("express-handlebars");
 
 const stripJs = require("strip-js");
 
+const clientSessions = require("client-sessions");
+
 
 const data = require("./blog-service")
+const authData = require("./auth-service")
 
 
 // Set up engine to render content -----------
@@ -80,9 +83,33 @@ function onHttpStart() {
     console.log("Express http server listening on " + HTTP_PORT);
 };
 
+// Middleware -----------------------------------------
+
 // Serving static files ------------------------------
 app.use(express.static(path.join(__dirname, "public"))); 
 
+// Setup Client session ------------------------------------
+app.use(clientSessions({
+    cookieName: "session",
+    secret: "web322_assignment6_kzaw",
+    duration: 2 * 60 * 1000, //duration of the session in milliseconds (2 minutes)
+    activeDuration: 1000 * 60 //the session will be extended by this many ms each request (1 minute)
+}));
+
+// So that we can access the session data in the views
+app.use(function(req, res, next) {
+    res.locals.session = req.session;
+    next();
+  });
+  
+// Middleware to check if the user is logged in
+function ensureLogin(req, res, next) {
+    if (!req.session.user) {
+        res.redirect("/login");
+    } else {
+        next();
+    }
+}
 
 // Fixing the routes (change category/5 to category) --
 app.use(function(req,res,next){
@@ -203,8 +230,8 @@ app.get('/blog/:id', async (req, res) => {
     res.render("blog", {data: viewData})
 });
 
-
-app.get("/posts/add", function(req, res){
+//6.	Update all routes that begin with one of: "/posts", "/categories", "/post" or "/category" (ie: everything that is not "/", "/blog" or "/about" - this should be 9 routes) to use your custom ensureLogin helper middleware.
+app.get("/posts/add", ensureLogin, function(req, res){
     data.getCategories()
     .then((data) => {
         res.render("addPost", {
@@ -218,7 +245,7 @@ app.get("/posts/add", function(req, res){
 })
 
 
-app.get("/posts", function(req, res){
+app.get("/posts", ensureLogin, function(req, res){
     const category = req.query.category;
     const minDateStr = req.query.minDate;
 
@@ -292,7 +319,7 @@ app.get("/posts", function(req, res){
 });
 
 
-app.get("/posts/:id", function(req, res){
+app.get("/posts/:id", ensureLogin, function(req, res){
     const postID = req.params.id;
     data.getPostById(postID)
     .then((data) => {
@@ -316,7 +343,7 @@ app.get("/posts/:id", function(req, res){
     })
 })
 
-app.get("/categories", function(req, res){
+app.get("/categories", ensureLogin, function(req, res){
     data.getCategories()
     .then((data) => {
         if (data.length > 0)
@@ -339,11 +366,11 @@ app.get("/categories", function(req, res){
     })
 });
 
-app.get("/categories/add", function(req, res){
+app.get("/categories/add", ensureLogin, function(req, res){
     res.render("addCategory");
 }); 
 
-app.post("/categories/add", function(req, res){
+app.post("/categories/add", ensureLogin, function(req, res){
     const category = req.body;
     data.addCategory(category)
     .then((data) => {
@@ -356,7 +383,7 @@ app.post("/categories/add", function(req, res){
     })
 });
 
-app.get("/categories/delete/:id", function(req, res){
+app.get("/categories/delete/:id", ensureLogin, function(req, res){
     const categoryID = req.params.id;
     data.deleteCategoryById(categoryID)
     .then((data) => {
@@ -367,7 +394,7 @@ app.get("/categories/delete/:id", function(req, res){
     })
 }); 
 
-app.get("/posts/delete/:id", function(req, res){
+app.get("/posts/delete/:id", ensureLogin, function(req, res){
     const postID = req.params.id;
     data.deletePostById(postID)
     .then((data) => {
@@ -379,7 +406,7 @@ app.get("/posts/delete/:id", function(req, res){
 });
 
 // Single fileupload with the name "image" in the req, adds a 'file' object to the req
-app.post("/posts/add", upload.single('featureImage'), function(req, res){
+app.post("/posts/add", ensureLogin, upload.single('featureImage'), function(req, res){
 
     // If the file was uploaded to the 'req'
     if (req.file)
@@ -431,6 +458,60 @@ app.post("/posts/add", upload.single('featureImage'), function(req, res){
     }    
 });
 
+
+app.get("/login", function(req, res){
+    res.render("login");
+});
+
+app.get("/register", function(req, res){
+    res.render("register");
+});
+
+app.post("/register", function(req, res){
+    authData.registerUser(req.body)
+    .then((data) => {
+        res.render("register", {
+            successMessage: "User created"
+        });
+    })
+    .catch((err) => {
+        res.render("register", {
+            errorMessage: err,
+            userName: req.body.username
+        });
+    })
+});
+
+app.post("/login", function(req, res){
+    req.body.userAgent = req.get('User-Agent');
+    authData.checkUser(req.body)
+    .then((user) => {
+        req.session.user = {
+            userName: user.userName,
+            email: user.email,
+            loginHistory: user.loginHistory
+        }
+        res.redirect('/posts');
+    })
+    .catch((err) => {
+        res.render("login", {
+            errorMessage: err,
+            userName: req.body.userName
+        });
+    })
+});
+
+app.get("/logout", function(req, res) {
+    req.session.reset();
+    res.redirect("/");
+});
+
+app.get("/userHistory", ensureLogin, function(req, res){
+    res.render("userHistory");
+});
+
+
+
 app.get('*', function(req, res){
     res.render("404");
 });
@@ -440,5 +521,6 @@ app.get('*', function(req, res){
 
 data
     .initialize()
+    .then(authData.initialize)
     .then((res)=>{app.listen(HTTP_PORT, onHttpStart);})
     .catch((err)=>{console.log(err);})
