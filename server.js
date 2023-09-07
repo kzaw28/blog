@@ -434,7 +434,7 @@ app.post("/posts/add", ensureLogin, upload.single('featureImage'), function(req,
         }
     
         upload(req).then((uploaded) => {
-            processPost(uploaded.url);
+            processPost(uploaded.secure_url);
         });
     } else {
         processPost("");
