@@ -422,7 +422,7 @@ app.post("/posts/add", ensureLogin, upload.single('featureImage'), function(req,
                             reject(error);
                         }
                     }
-                );
+                , {secure: true});
                 streamifier.createReadStream(req.file.buffer).pipe(stream);
             });
         };
